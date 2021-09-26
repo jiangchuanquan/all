@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Word Frequence.iml" filepath="$PROJECT_DIR$/Word Frequence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ideaworkplace.iml" filepath="$PROJECT_DIR$/.idea/ideaworkplace.iml" />
     </modules>
   </component>
 </project>
