@@ -1,29 +1,53 @@
 public class NextDate {
+    public int isData_legalization(int a,int b,int c){
+        if(a>=b&&a<=c)
+            return 0;
+        else
+            return 1;
+    }
+    public int IsLeapYear(int year)
+    {
+        int isleapYear;
+
+        if(( (year%400)==0) || (((year%4)==0) && ((year%100)!=0)) )
+            isleapYear=1;
+        else
+            isleapYear=0;
+        return isleapYear;
+    }
+public int isday(int year,int day)
+{
+    int q=0;
+    int isleapYear = IsLeapYear(year);
+    if((day==28&&isleapYear==1))
+        q = 1;
+    else if(day==28 &&isleapYear==0)
+        q= 2;
+    else if(day ==29 &&isleapYear==1)
+        q = 3;
+    else
+        q = 4;
+    return q;
+}
     public String getNextDate(int day, int month, int year){
+        int isleapYear=(IsLeapYear(year));
+        int x = 0;
+        int y =28;
+        int sum = 0;      //用来判断符合基本条件的个数，如果为0则三个都满足，只要大于等于1，就是不符合要求的。
+        sum+=isData_legalization(day,1,31);
+        sum+=isData_legalization(month,1,12);
+        sum+=isData_legalization(year,1900,2050);
         int tDay = day, tMonth = month, tYear = year;
-        if((day >= 1 && day<= 31) && (month >= 1 && month <= 12 ) && (year >= 1900 && year <=2050))
+        if(sum ==0)
         {
-            boolean isLeapYear = ((year%400)==0) || (((year%4)==0) && ((year%100)!=0));
 //用于判断是否为闰年
             switch (month){
                 case 2:
-                    if(day==29 && !isLeapYear)
-                        return "输入数据有问题";
-                    if (day<28){
-                        tDay = day + 1;
-                    }
+                    tDay=day+1;
+                    y=isleapYear+y;//本年度二月份最大天数
+                    tMonth+=tDay/(y+1);
+                    tDay=((tDay/(y+1)+tDay)%(y+1));
 
-                    if(day == 28 && isLeapYear) {
-                        tDay = 29;
-                    }
-                    if((day == 29 && isLeapYear) ||(day == 28 && !isLeapYear))
-                    {
-                        tDay = 1;
-                        tMonth = 3;
-                    }
-
-                    if(day > 29 || day <1)
-                        return "输入数据有问题";
                     break;
                 case 12:
                     if (day<31){
@@ -44,25 +68,17 @@ public class NextDate {
                 case 7:
                 case 8:
                 case 10:
-                    if (day < 31) //有前面一层的限制，day肯定是小于等于32的，如果不小于31，此时day为31天
-                        tDay = day + 1;
-                    else {
-                        tDay = 1;
-                        tMonth = month+1;
-                    }
+                    tDay = day+1;
+                    tMonth += tDay/32;
+                    tDay = (tDay/32+tDay)%32;
                     break;
                 case 4:
                 case 6:
                 case 9:
                 case 11:
-                    if (day < 30){
-                        tDay = day + 1;
-                    }else if (day == 30){
-                        tDay = 1;
-                        tMonth = month + 1;
-                    }else {
-                        return "输入数据有问题";
-                    }
+                    tDay=day+1;
+                    tMonth+=tDay/31;
+                    tDay=(tDay/31+tDay)%31;
                     break;
 
 
