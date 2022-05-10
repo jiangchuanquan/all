@@ -80,16 +80,11 @@ public int isday(int year,int day)
                     tMonth+=tDay/31;
                     tDay=(tDay/31+tDay)%31;
                     break;
-
-
                 default:
                     return "输入数据有问题";
             }
             return  tYear + "年" + tMonth + "月" + tDay + "日";
-
         }
         return "输入数据有问题";
-
     }
-
 }
